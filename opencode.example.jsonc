@@ -1,0 +1,112 @@
+{
+  // OpenCode v2 yapılandırması.
+  // Bu dosyayı ~/.config/opencode/opencode.jsonc olarak kopyala.
+  // Anahtarı buraya yazma; aşağıdaki .evren-key dosyasından okunur.
+  "$schema": "https://opencode.ai/config.json",
+
+  // Açılışta seçili gelecek model.
+  "model": "evren/glm-5.3",
+
+  "providers": {
+    "evren": {
+      "name": "EVREN",
+
+      // OpenAI uyumlu API ile konuşan çalışma zamanı.
+      "package": "@opencode/ai/providers/openai-compatible",
+
+      "settings": {
+        // EVREN LLM API adresi. Sondaki /v1 gerekli.
+        "baseURL": "https://evren-llmapi.ssyz.org.tr/v1",
+
+        // Anahtar dosyası: config dosyasıyla aynı klasördeki .evren-key.
+        // Göreli yol, config dosyasının bulunduğu klasöre göre çözülür.
+        // Ortam değişkeni kullanmak istersen bunun yerine
+        // "env": ["EVREN_LLM_API_KEY"] satırını ekleyebilirsin.
+        "apiKey": "{file:./.evren-key}"
+      },
+
+      // Sohbet/ajan olarak kullanılabilen modeller.
+      // Buradaki adlar /v1/models çıktısındaki "id" ile birebir aynı olmalı.
+      // limit ve capabilities değerleri /v1/models yanıtından alındı.
+      "models": {
+        "glm-5.3": {
+          "name": "GLM 5.3",
+          "limit": { "context": 524288, "output": 16384 },
+          "capabilities": {
+            "tools": true,
+            "input": ["text"],
+            "output": ["text"],
+            "temperature": true,
+            "reasoning": { "supported": true }
+          }
+        },
+        "deepseek-v4.1-flash": {
+          "name": "DeepSeek V4.1 Flash",
+          "limit": { "context": 1048576, "output": 65536 },
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "temperature": true,
+            "reasoning": { "supported": true }
+          }
+        },
+        "qwen3.8-flash-next": {
+          "name": "Qwen3.8 Flash Next",
+          "limit": { "context": 262144, "output": 16384 },
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "temperature": true,
+            "reasoning": { "supported": true }
+          }
+        },
+        "mimo-v2.6-pro": {
+          "name": "MiMo V2.6 Pro",
+          "limit": { "context": 1048576, "output": 16384 },
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "temperature": true,
+            "reasoning": { "supported": true }
+          }
+        },
+        "gemma-4-31b": {
+          "name": "Gemma 4 31B",
+          "limit": { "context": 262144, "output": 16384 },
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "temperature": true,
+            "reasoning": { "supported": true }
+          }
+        },
+        "qwen3-vl-30b": {
+          "name": "Qwen3 VL 30B",
+          "limit": { "context": 262144, "output": 16384 },
+          "capabilities": {
+            "tools": true,
+            "input": ["text", "image"],
+            "output": ["text"],
+            "temperature": true,
+            "reasoning": { "supported": false }
+          }
+        },
+        "auto": {
+          "name": "EVREN Auto",
+          "limit": { "context": 32768, "output": 16384 },
+          "capabilities": {
+            "tools": false,
+            "input": ["text"],
+            "output": ["text"],
+            "temperature": true,
+            "reasoning": { "supported": false }
+          }
+        }
+      }
+    }
+  }
+}
