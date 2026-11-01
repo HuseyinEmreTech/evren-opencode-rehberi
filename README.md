@@ -4,6 +4,8 @@ EVREN platformundaki günlük token kotanı, terminalde çalışan bir yapay zek
 
 > Bu rehber resmi değildir; EVREN veya SSB ile bağlantısı yoktur. Adres, model adları ve limitler `/v1/models` yanıtından alındı; **kendi hesabında doğrula**.
 
+> ⚠️ **Önemli:** EVREN kullanım şartlarını **mutlaka okumanız gerekir.** Bu rehber ve `kur.sh` şartları sizin yerinize kabul etmez; onay size sorulur ve kabul sorumluluğu size aittir.
+
 ## Gerekenler
 
 - EVREN hesabı (e-Devlet ile giriş) ve kotan
@@ -89,6 +91,8 @@ Anahtar oluşturmak tek başına yetmez. İlk istek, şartlar kabul edilmediği 
 ```text
 403 terms_not_accepted
 ```
+
+> ⚠️ **Kabul etmeden önce şartları mutlaka okuyun.** Metni okumadan onaylamayın; onay hesabınız adına verilir ve sorumluluk size aittir.
 
 Anahtarı bir yere kaydettikten sonra şart metnini oku ve onayla:
 
