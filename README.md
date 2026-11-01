@@ -38,7 +38,7 @@ Betik sırayla:
 
 1. API anahtarını **gizli** olarak sorar (ekranda görünmez).
 2. Anahtarı EVREN'e karşı doğrular; yanlışsa nedenini söyler.
-3. Kullanım şartları kabul edilmemişse metni indirir, onayını alır ve onaylar.
+3. Kullanım şartları kabul edilmemişse metni indirir, **okumanı ister** ve "Kullanım şartlarını kabul ediyor musunuz? [e/H]" diye sorar. Şartlar senin adına otomatik kabul edilmez; yalnızca `e` yazarsan onaylanır.
 4. Anahtarı `~/.config/opencode/.evren-key` dosyasına yazar (`chmod 600`).
 5. `/v1/models` listesinden **tüm sohbet modellerini** çekip OpenCode config'ini üretir.
 6. Varsa eski config'i zaman damgalı olarak yedekler.
@@ -283,6 +283,9 @@ Günlük 15.000.000 token kota, tüm API anahtarlarının toplamıdır. Önbelle
 - Kullanım şartlarının `v1` sürümü ve `terms_not_accepted` davranışı gerçek API isteğiyle doğrulandı.
 - OpenCode ayar biçimi [v2 sağlayıcı dokümanına](https://opencode.ai/v2/docs/providers) göre yazıldı ve v2.2.5 ile `opencode run` üzerinden test edildi.
 - Günlük kota (15 milyon) ve sıfırlanma saati üçüncü taraf kaynaklardan; resmi dokümanla karşılaştırılmadı.
+- `kur.sh` macOS ve Windows'ta çalıştırılarak denenmedi, yalnızca kod incelemesiyle kontrol edildi. macOS'in eski bash 3.2'sine uygun yazıldı; `python3` (Xcode Command Line Tools) gerekir.
+- Windows'ta `kur.sh` yalnızca Git Bash veya WSL'de çalışır; cmd/PowerShell'de çalışmaz. Betik `python3` yoksa `python` komutunu dener.
+- Windows'ta OpenCode'un ayarı `~/.config/opencode` altında arayıp aramadığı doğrulanmadı.
 - Küçük modellerde çok dosyalı işlerin Claude kalitesinde olmayabileceği beklentisi bir tahmindir, ölçülmedi.
 
 ## Katkı

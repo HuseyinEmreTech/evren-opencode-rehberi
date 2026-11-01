@@ -12,7 +12,7 @@
 #   4. Anahtarı ~/.config/opencode/.evren-key dosyasına yazar (chmod 600).
 #   5. /v1/models listesinden sohbet modellerini çekip OpenCode config'ini üretir.
 #
-# Gerekenler: bash, curl, python3
+# Gerekenler: bash, curl, python3 (Windows’ta Git Bash + python)
 
 set -euo pipefail
 
@@ -44,7 +44,12 @@ printf '\nEVREN → OpenCode kurulumu\n'
 printf '=========================\n\n'
 
 need curl
-need python3
+# Windows'ta (Git Bash) komut 'python', Microsoft Store kısayolu 'python3' çalışmaz; gerçekten çalışanı seç.
+PY=""
+for c in python3 python; do
+  if "$c" -c 'import sys; sys.exit(sys.version_info[0] < 3)' >/dev/null 2>&1; then PY="$c"; break; fi
+done
+[ -n "$PY" ] || die "Python 3 bulunamadı. Lütfen kurup tekrar dene."
 
 mkdir -p "$CONFIG_DIR"
 chmod 700 "$CONFIG_DIR" 2>/dev/null || true
@@ -94,19 +99,21 @@ case "$code" in
     die "Anahtar reddedildi (401). Anahtarın tamamını kopyaladığından ve EVREN'de 'LLM Çıkarım' sınıfında oluşturulduğundan emin ol."
     ;;
   403)
-    err_code="$(python3 -c "import json,sys;d=json.load(open(sys.argv[1]));print(d.get('error',{}).get('code',''))" "$TMP" 2>/dev/null || true)"
+    err_code="$("$PY" -c "import json,sys;d=json.load(open(sys.argv[1]));print(d.get('error',{}).get('code',''))" "$TMP" 2>/dev/null || true)"
     if [ "$err_code" = "terms_not_accepted" ]; then
       printf 'Kullanım şartları henüz kabul edilmemiş.\n'
       tcode="$(request "$BASE_URL/terms/text" -H "Authorization: Bearer $KEY")"
       [ "$tcode" = "200" ] || die "Kullanım şartları metni alınamadı (HTTP $tcode)."
-      python3 - "$TMP" "$TERMS_FILE" <<'PY'
+      "$PY" - "$TMP" "$TERMS_FILE" <<'PY'
 import json, sys
 data = json.load(open(sys.argv[1]))
 open(sys.argv[2], "w", encoding="utf-8").write(data.get("content", ""))
 PY
       printf 'Şart metni kaydedildi: %s\n' "$TERMS_FILE"
-      printf 'Devam etmeden önce bu dosyayı okuman önerilir.\n'
-      read -r -p "Şartları okudum ve kabul ediyorum [e/H] " ok || ok=""
+      printf '\nLÜTFEN KULLANIM ŞARTLARINI OKUYUN. Şartlar sizin adınıza otomatik kabul edilmez.\n'
+      printf 'Okumak için: less %s\n\n' "$TERMS_FILE"
+      # /dev/tty: 'curl | bash' ile çalıştırılsa bile soru terminalden okunur
+      read -r -p "Kullanım şartlarını kabul ediyor musunuz? [e/H] " ok </dev/tty || ok=""
       case "$ok" in
         e|E|evet|Evet|EVET) ;;
         *) die "Şartlar kabul edilmeden kurulum tamamlanamaz." ;;
@@ -140,7 +147,7 @@ if [ -f "$CONFIG_FILE" ]; then
   printf 'Eski config yedeklendi: %s\n' "$BACKUP"
 fi
 
-python3 - "$TMP" "$CONFIG_FILE" <<'PY'
+"$PY" - "$TMP" "$CONFIG_FILE" <<'PY'
 import json
 import sys
 
