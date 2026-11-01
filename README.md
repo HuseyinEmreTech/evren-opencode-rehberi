@@ -9,6 +9,7 @@ EVREN platformundaki günlük token kotanı, terminalde çalışan bir yapay zek
 - EVREN hesabı (e-Devlet ile giriş) ve kotan
 - [OpenCode](https://opencode.ai) (kurulu değilse 0. adıma bak)
 - Platformdan üretilmiş bir LLM API anahtarı (`evren_llm_` ile başlar)
+- `kur.sh` için: `bash`, `curl` ve Python 3 (macOS'ta Xcode Command Line Tools ile gelir)
 
 ## 0. OpenCode'u kur
 
@@ -24,7 +25,7 @@ Aşağıdaki yöntemlerden **birini** seç:
 
 Kurulumdan sonra **terminali kapatıp yeniden aç**, sonra `opencode --version` ile kontrol et. "command not found" çıkarsa yeni bir terminal açmayı unutmuş olabilirsin.
 
-> Windows'ta en sorunsuz yol [WSL](https://learn.microsoft.com/windows/wsl/install) içinde Linux komutunu kullanmaktır. Kurulum seçenekleri değişebilir; güncel hali: <https://opencode.ai/v2/docs>.
+> Windows'ta en sorunsuz yol [WSL](https://learn.microsoft.com/windows/wsl/install) içinde Linux komutunu kullanmaktır. `kur.sh` cmd/PowerShell'de çalışmaz; WSL veya Git Bash gerekir (Git Bash'te Python 3 de kurulu olmalı). Kurulum seçenekleri değişebilir; güncel hali: <https://opencode.ai/v2/docs>.
 
 ## Hızlı kurulum: tek betik
 
