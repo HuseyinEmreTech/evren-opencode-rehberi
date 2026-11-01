@@ -6,6 +6,8 @@ EVREN platformundaki günlük token kotanı, terminalde çalışan bir yapay zek
 
 > ⚠️ **Önemli:** EVREN kullanım şartlarını **mutlaka okumanız gerekir.** Bu rehber ve `kur.sh` şartları sizin yerinize kabul etmez; onay size sorulur ve kabul sorumluluğu size aittir.
 
+> ⚠️ **Verileriniz hakkında:** v1 şartlarında promptların/çıktıların model eğitiminde **kullanılmayacağına dair bir taahhüt yoktur.** §4'te yalnızca KVKK kapsamında işlendiği, org düzeyinde bir rıza mekanizması (`llm_corpus_consent`) ve unutulma hakkı (`llm_privacy_tombstone`) olduğu yazar; ayrıntılar API'den gelmeyen `docs/compliance/` belgelerindedir. Gizli/kişisel veri göndermeden önce EVREN'e sorun. Metin örneği: [`ornek-kullanim-sartlari-v1.md`](ornek-kullanim-sartlari-v1.md).
+
 ## Gerekenler
 
 - EVREN hesabı (e-Devlet ile giriş) ve kotan
